@@ -257,37 +257,33 @@ Z-distribution analysis.
 
 ---
 
-# Future Experiments
+## Movement Statistics
 
-Priority 1
+### Results
 
-- Dataset statistics
-- Z-distribution
-- Nodes per sample
+- Average displacement: 2.13 µm
+- Minimum displacement: 0.00 µm
+- Maximum displacement: 60.76 µm
+- Ground-truth edges always connect consecutive frames.
 
-Priority 2
+### Observations
 
-- Movement statistics
-- Track statistics
-- Division analysis
+- The majority of cell movements are below 5 µm.
+- Consecutive-frame motion is generally small.
+- A small number of large displacements exist and require further investigation.
+- A nearest-neighbor tracker is a strong candidate for the baseline because typical movement is limited.
 
-Priority 3
+### Investigation of Large Motion Outliers
 
-- Baseline detector
-- Baseline tracker
+The largest ground-truth displacements were investigated separately.
 
----
+Findings:
 
-# Lessons Learned
+- The eight largest movements all originated from sample `6bba_f20478e9`.
+- These correspond exactly to the only eight edges in that sample with |Δz| > 20 slices.
+- The displacement is dominated by changes along the Z-axis rather than XY motion.
+- These events represent rare outliers and are not representative of typical cell movement.
 
-## Lesson 1
+Conclusion:
 
-Validate every assumption with data before designing algorithms.
-
-## Lesson 2
-
-Infrastructure should stabilize early.
-
-## Lesson 3
-
-The dataset should determine algorithmic choices—not intuition.
+Tracker hyperparameters should be chosen using the movement distribution (e.g., 95th or 99th percentile) rather than the maximum observed displacement.
