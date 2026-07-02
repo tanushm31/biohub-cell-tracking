@@ -2,3 +2,9 @@
 venv/
 **/venv/
 **/.venv/
+
+# Ignore /data/raw/train directory completely
+/data/raw/train
+/data/raw/test
+data/.DS_Store
+.DS_Store
